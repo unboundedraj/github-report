@@ -555,7 +555,8 @@ async function collectCommits({
   let page = 1;
   const perPage = 100;
 
-  while (commits.length < MAX_COMMITS) {
+  // Use <= so a full final page triggers one more fetch to detect truncation
+  while (commits.length <= MAX_COMMITS) {
     setStatus(`Fetching commits page ${page}...`, 8 + page * 2);
     const pageItems = await fetchCommitsPage({
       owner,

@@ -94,7 +94,8 @@ export async function collectCommits({
   let page = 1;
   const perPage = 100;
 
-  while (commits.length < maxCommits) {
+  // Use <= so a full final page triggers one more fetch to detect truncation
+  while (commits.length <= maxCommits) {
     onProgress?.(`Fetching commit page ${page}...`);
 
     const url = new URL(`${GITHUB_API_BASE}/repos/${owner}/${repo}/commits`);
